@@ -1,6 +1,7 @@
 package appsistemaacademico;
 
 import java.math.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppSistemaAcademico {
@@ -24,10 +25,11 @@ public class AppSistemaAcademico {
 
         AlunoDao dao = new AlunoDao();
         dao.adiciona(aluno);
+        
         List<Aluno> alunos = dao.getLista();
         
-        for (Aluno aluno : alunos) {
-            System.out.println("\nID: " + aluno.getId() + " Nome: " + aluno.getNome() + " Nota: " + aluno.getNota());
+        for (Aluno lisAluno : alunos) {
+            System.out.println("\nID: " + lisAluno.getId() + " Nome: " + lisAluno.getNome() + " Nota: " + lisAluno.getNota());
         }
     }
 }
