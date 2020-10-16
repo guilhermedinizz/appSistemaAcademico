@@ -24,6 +24,10 @@ public class AppSistemaAcademico {
 
         AlunoDao dao = new AlunoDao();
         dao.adiciona(aluno);
-        dao.consulta();
+        List<Aluno> alunos = dao.getLista();
+        
+        for (Aluno aluno : alunos) {
+            System.out.println("\nID: " + aluno.getId() + " Nome: " + aluno.getNome() + " Nota: " + aluno.getNota());
+        }
     }
 }
