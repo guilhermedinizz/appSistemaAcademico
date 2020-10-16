@@ -35,24 +35,32 @@ public class AlunoDao {
         }
     }
 
-    public void consulta() {
-        String sql = "SELECT * FROM ALUNO";
+    public List<Aluno> getLista() {
         try {
-            // prepared statement para consulta
-            PreparedStatement stm = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection
+                    .prepareStatement("select * from ALUNO");
+            ResultSet rs = stmt.executeQuery();
 
-            ResultSet rs = stm.executeQuery();
+            List<Aluno> alunos = new ArrayList<Aluno>();
 
-            // consulta
-            System.out.println("\nLista de alunos");
             while (rs.next()) {
+                
+                // criando o objeto aluno
+                Aluno aluno = new Aluno();
+                aluno.setId(rs.getInt("ID_ALUNO"));
+                aluno.setNome(rs.getString("NOME"));
+                aluno.setNota(rs.getBigDecimal("NOTA"));
+                
+                // adicionando o objeto à lista
+                alunos.add(aluno);
 
-                String nome = rs.getString("nome");
-                BigDecimal nota = rs.getBigDecimal("nota");
-
-                System.out.println("nome:" + nome + " nota:" + nota);
             }
+            
+            rs.close();
+            stmt.close();
 
+            return alunos;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
